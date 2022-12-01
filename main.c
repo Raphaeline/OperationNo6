@@ -8,6 +8,7 @@ void TitleMain();
 void TitleAdmin();
 void TitleInputListRumah();
 void TitleInputListApartment();
+void TitleUser();
 
 //display
 void DisplayAdmin();
@@ -16,6 +17,7 @@ void DisplayUser();
 void DisplayAccAdmin();
 void DisplayListRumahAdmin();
 void DisplayListApartmentAdmin();
+void DisplayListUser();
 
 //fungsi pembantu
 void cls();
@@ -25,6 +27,7 @@ int InputPilihanAdmin();
 int PilihanAccAdmin();
 int InputPilihanListRumahAdmin();
 int InputPilihanListApartmentAdmin();
+int InputPilihanUser();
 int SortDataListRumahJual();
 int SortDataListRumahSewa();
 int SortDataListApartmentSewa();
@@ -53,6 +56,11 @@ void LihatListRumahSewa();
 void UserMenu();
 void RegisterUser();
 int LoginUser();
+void LihatBiodataCurrentUser();
+void ListRumahUser();
+void ListApartmentUser();
+void CariPropertyUser();
+
 struct User{
 	char nama[100],tanggallahir[100],kewarganegaraan[50], alamat[100];
 	char passport[100], username[100], password[100];
@@ -255,6 +263,7 @@ void ListApartmentAdmin(){
 
 
 
+
 //FUNGSI TITLE
 
 void TitleMain(){
@@ -301,12 +310,18 @@ void TitleRegist(){
 
 void TitleInputListRumah(){
 	printf("\nList Rumah\n");
+	
 }
 
 void TitleInputListApartment(){
 	printf("\nList Apartment!\n");
+	
 }
 
+void TitleUser(){
+	printf("\ntitle user\n");
+	
+}
 
 //FUNGSI DISPLAY
 
@@ -362,6 +377,18 @@ void DisplayListApartmentAdmin(){
 	    "|       3. MELIHAT LIST JUAL                 |  \n"
 	    "|       4. MELIHAT LIST SEWA                 |  \n"
 	    "|       5. KEMBALI                           |  \n"
+	    "=============================================     ";
+	    puts(display);
+}
+
+void DisplayListUser(){
+	char *display = 
+	"=================   USER MENU   ==================   \n"
+	    "|       1. LIHAT BIODATA                     |  \n"
+	    "|       2. LIST RUMAH                        |  \n"
+	    "|       3. LIST APARTMENT                    |  \n"
+	    "|       4. MENCARI PROPERTY                  |  \n"
+	    "|       5. LOG OUT                           |  \n"
 	    "=============================================     ";
 	    puts(display);
 }
@@ -424,6 +451,16 @@ int InputPilihanListApartmentAdmin(){
 	else return 0;
 }
 
+int InputPilihanUser(){
+	int pilihan, min = 1, max = 5;
+	DisplayListUser();
+	printf("Input Pilihan: ");
+        scanf("%d", &pilihan);getchar();
+	if(pilihan >= min && pilihan <= max){
+		return pilihan;
+	}
+	else return 0;
+}
 
 //FUNGSI PEMBANTU
 
@@ -798,10 +835,58 @@ void LihatListApartmentSewa(){
 //FUNGSI USER
 
 void UserMenu(){
-	while(LoginUser() == 1){
-		
+	TitleUser();
+	int success = LoginUser();
+	if(success){
+	 	int pilihan = InputPilihanUser();
+		while(pilihan != 5){
+			switch(pilihan){
+				case 1 :
+						cls();
+						LihatBiodataCurrentUser();
+						break;
+				case 2 :
+						cls();
+						ListRumahUser();
+						break;
+				case 3 :
+						cls();
+						ListApartmentUser();
+						break;
+				case 4 : 
+						cls();
+						CariPropertyUser();
+						break;
+				case 0 : 
+						printf("Pilihan Salah!!\n");
+						break;			
+			}
+			cls();
+			TitleUser();
+			pilihan = InputPilihanUser();
+		}
+		if(pilihan == 5){
+			printf("\nLogging Out\n");
+			cls();
+		}
 
 	}
+}
+
+void LihatBiodataCurrentUser(){
+	
+}
+
+void ListRumahUser(){
+	
+}
+
+void ListApartmentUser(){
+	
+}
+
+void CariPropertyUser(){
+	
 }
 
 int LoginUser(){
