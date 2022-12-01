@@ -52,11 +52,12 @@ void LihatListRumahSewa();
 //user
 void UserMenu();
 void RegisterUser();
+int LoginUser();
 struct User{
 	char nama[100],tanggallahir[100],kewarganegaraan[50], alamat[100];
 	char passport[100], username[100], password[100];
 	int umur;
-}dataUser;
+}dataUser, current;
 FILE *fp;
 FILE *fp2;
 
@@ -797,10 +798,49 @@ void LihatListApartmentSewa(){
 //FUNGSI USER
 
 void UserMenu(){
-	printf("Test \n");
+	while(LoginUser() == 1){
+		
+
+	}
 }
 
-
+int LoginUser(){
+	int success = 0, trial = 3;
+	char inputUser[50], inputPass[50];
+	while(!success && trial > 0){
+		fp = fopen(userBiodata, "rb");
+		printf("Masukkan Username dan Password \n");
+		printf("Username\t: ");
+			gets(inputUser);
+		printf("Password\t: ");
+			gets(inputPass);
+			
+		while(freadUser == 1){
+			if(strcmp(inputUser,dataUser.username) == 0 && strcmp(inputPass,dataUser.password) == 0){
+				current = dataUser;
+				success = 1;
+			}
+		}
+		if(success){
+			printf("\nLOGIN BERHASIL\n");
+			cls();
+			fclose(fp);
+			break;
+		}
+		else{
+			trial--;
+			printf("\nUsername atau Password Salah!!\n");
+			printf("sisa percobaan %d \n", trial);
+			cls();
+		}
+		fclose(fp);
+		system("cls");
+	}
+	if(trial == 0){
+		printf("\nPercobaan sudah habis !! Kembali ke Main menu! \n");
+	}
+	return success;
+}
 
 
 //FUNGSI REGISTER USER
@@ -849,4 +889,13 @@ void RegisterUser(){
 	system("cls");
 	}while(pilihan != 2);
 }
+
+
+
+
+
+
+
+
+  
 
